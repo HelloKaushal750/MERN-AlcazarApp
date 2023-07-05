@@ -1,0 +1,19 @@
+.booking_right_container{
+    width: 25%;
+    background-image: linear-gradient(to bottom, white, rgb(18, 17, 17));
+  background-size: cover;
+    padding-top: 20px;
+    padding-right: 20px;
+}
+.flight-chart{
+    margin-top: 20px;
+    border: 1px solid;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: #afc947;
+    color: white;
+}
+.flight-chart>div{
+    display: flex;
+    justify-content: space-between;
+}

@@ -1,0 +1,6 @@
+.booking-process-container {
+ padding: 30px 50px;
+  background-image: linear-gradient(to bottom, white, rgb(18, 17, 17));
+  background-size: cover;
+  height: 100vh;
+}

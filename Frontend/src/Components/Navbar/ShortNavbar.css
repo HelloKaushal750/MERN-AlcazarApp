@@ -1,0 +1,17 @@
+@media (min-width: 1920px) {
+.shortnavdiv{
+    top: 0;
+    left: 0;
+    width: 100%;
+    color: white;
+}
+}
+
+@media (min-width: 1600px) and (max-width: 1900px) {
+    .shortnavdiv{
+        top: 0;
+        left: 0;
+        width: 100%;
+        color: white;
+    }
+    }

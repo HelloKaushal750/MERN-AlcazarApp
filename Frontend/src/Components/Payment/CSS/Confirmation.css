@@ -1,0 +1,37 @@
+#icon-successful {
+  color: rgb(43, 219, 43);
+  font-size: 80px;
+  
+}
+.confirm-main-div {
+  width: 90%;
+  margin: auto;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  display: flex;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  /* height: 390px; */
+  flex-direction: row;
+}
+.confirm-left-div {
+  width: 40%;
+  border-radius: 10px 0 0 10px;
+  background-color: white;
+  padding-top: 20px;
+}
+.confirm-right-div {
+  width: 60%;
+  border-radius: 0 10px 10px 0;
+  padding: 20px;
+  background-image: linear-gradient(to left bottom,white,rgb(28,160,227));
+  color: white;
+}
+.tableBody td{
+  padding: 10px 0;
+  padding-right: 20px;
+}
+.tableBody td p {
+  font-size: 16px;
+}

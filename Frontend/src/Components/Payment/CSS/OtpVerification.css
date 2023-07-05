@@ -1,0 +1,20 @@
+
+.otpInput {
+    margin: 10px;
+  height: 35px;
+  width: 55px;
+  border: 2px solid black;
+  border-radius: 5px;
+  text-align: Center;
+  font-family: Arimo;
+  font-size: 20px;
+  background: white;
+  color: black;
+}
+.UserInput{
+  display: flex;
+  justify-content: center;
+}
+.Container{
+    margin-bottom: 10px;
+}

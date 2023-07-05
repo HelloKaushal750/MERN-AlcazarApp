@@ -1,0 +1,9 @@
+
+.background{
+    background-image: url('https://familydestinationsguide.com/travel-guides/family-travel-guide/images/top-animation.gif');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    background-position: center;
+
+}

@@ -1,0 +1,9 @@
+
+.background{
+    background-image: url('https://img.freepik.com/free-vector/cartoon-night-nature-landscape-full-moon-shining-sky-with-stars-field-with-pond-conifer-trees-rocks-dark-heaven-with-moonlight-romantic-fantasy-background-midnight-twilight-vector-view_107791-10119.jpg?w=1380&t=st=1685916028~exp=1685916628~hmac=5cd02bf250d569fbbf75a3d63f3c307d0a32f7e4d589d98956d65716d9a77b4a');
+    background-size: cover;
+    background-repeat: no-repeat;
+     height: 100vh;
+    background-position: center;
+
+}

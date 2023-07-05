@@ -1,0 +1,234 @@
+@media (min-width: 1920px) {
+.NavbarDiv{
+   top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  color: white;
+  background-color: black;
+  background-image: url("hiking-camp-night-campfire-man-alone-1576819-pxhere.com.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.content {
+   margin-top: 100vh;
+ }
+
+ .headingAA{
+   font-size: 5vw;
+   margin-top: 5vw;
+ }
+
+ .headingAB{
+   font-size: 1vw;
+   margin-top: 1vw;
+ }
+}
+
+@media (min-width: 1400px) and (max-width: 1920px) {
+  .NavbarDiv{
+     top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    color: white;
+    background-color: black;
+    background-image: url("hiking-camp-night-campfire-man-alone-1576819-pxhere.com.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  .content {
+     margin-top: 100vh;
+   }
+  
+   .headingAA{
+     font-size: 5vw;
+     margin-top: 10vw;
+   }
+  
+   .headingAB{
+     font-size: 1vw;
+     margin-top: 1vw;
+   }
+  }
+
+  @media (min-width: 1280px) and (max-width: 1400px) {
+    .NavbarDiv{
+       top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      color: white;
+      background-color: black;
+      background-image: url("hiking-camp-night-campfire-man-alone-1576819-pxhere.com.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    
+    .content {
+       margin-top: 100vh;
+     }
+    
+     .headingAA{
+       font-size: 5vw;
+       margin-top: 15vw;
+     }
+    
+     .headingAB{
+       font-size: 1vw;
+       margin-top: 2vw;
+     }
+    }
+
+    @media (min-width: 975px) and (max-width: 1280px) {
+      .NavbarDiv{
+         top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        color: white;
+        background-color: black;
+        background-image: url("hiking-camp-night-campfire-man-alone-1576819-pxhere.com.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      
+      .content {
+         margin-top: 100vh;
+       }
+      
+       .headingAA{
+         font-size: 8vw;
+         margin-top: 20vw;
+       }
+      
+       .headingAB{
+         font-size: 1.75vw;
+         margin-top: 3vw;
+       }
+      }
+
+
+      @media (min-width: 800px) and (max-width: 975px) {
+        .NavbarDiv{
+           top: 0;
+          left: 0;
+          width: 100%;
+          height: 100vh;
+          color: white;
+          background-color: black;
+          background-image: url("hiking-camp-night-campfire-man-alone-1576819-pxhere.com.jpg");
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: left;
+        }
+        
+        .content {
+           margin-top: 100vh;
+         }
+        
+         .headingAA{
+           font-size: 8vw;
+           margin-top: 20vw;
+         }
+        
+         .headingAB{
+           font-size: 1.75vw;
+           margin-top: 3vw;
+         }
+        }
+
+        @media (min-width: 500px) and (max-width: 800px) {
+          .NavbarDiv{
+             top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            color: white;
+            background-color: black;
+            background-image: url("hiking-camp-night-campfire-man-alone-1576819-pxhere.com.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: left;
+          }
+          
+          .content {
+             margin-top: 100vh;
+           }
+          
+           .headingAA{
+             font-size: 9vw;
+             margin-top: 25vw;
+           }
+          
+           .headingAB{
+             font-size: 1.75vw;
+             margin-top: 5vw;
+           }
+          }
+
+          @media (min-width: 350px) and (max-width: 500px) {
+            .NavbarDiv{
+               top: 0;
+              left: 0;
+              width: 100%;
+              height: 100vh;
+              color: white;
+              background-color: black;
+              background-image: url("hiking-camp-night-campfire-man-alone-1576819-pxhere.com.jpg");
+              background-size: cover;
+              background-repeat: no-repeat;
+              background-position: 18% 10px;
+            }
+            
+            .content {
+               margin-top: 100vh;
+             }
+            
+             .headingAA{
+               font-size: 9vw;
+               margin-top: 40vw;
+             }
+            
+             .headingAB{
+               font-size: 1.75vw;
+               margin-top: 5vw;
+               margin-bottom: 15vw;
+             }
+            }
+
+            @media (max-width: 350px){
+              .NavbarDiv{
+                 top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                color: white;
+                background-color: black;
+                background-image: url("hiking-camp-night-campfire-man-alone-1576819-pxhere.com.jpg");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: 18% 10px;
+              }
+              
+              .content {
+                 margin-top: 100vh;
+               }
+              
+               .headingAA{
+                 font-size: 9vw;
+                 margin-top: 40vw;
+               }
+              
+               .headingAB{
+                 font-size: 2.5vw;
+                 margin-top: 5vw;
+                 margin-bottom: 15vw;
+               }
+              }
