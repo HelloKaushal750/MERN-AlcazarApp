@@ -9,9 +9,8 @@ const VacationSchema = mongoose.Schema({
     type: String,
     required: true,
     default: "customer",
-    enum: ["customer,admin"],
-  },
-  userId: { type: String, required: true },
+    enum: ["customer","admin"],
+  }
 });
 
 const VacationModel = mongoose.model("vacations", VacationSchema);

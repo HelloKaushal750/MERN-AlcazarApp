@@ -10,7 +10,7 @@
   border-radius: 8px;
   position: relative;
   width: 18vw;
-  height: 14vw;
+  /* height: 14vw; */
   margin-bottom: 1.5vw;
   margin-left: 1.6vw;
 }
@@ -133,7 +133,7 @@
   margin-left: 23.5vw;
   font-size: 0.8vw;
 }
-
+/* card */
 .headingA {
   text-align: center;
   font-size: 2vw;
@@ -226,7 +226,7 @@
     border-radius: 8px;
     position: relative;
     width: 20vw;
-    height: 16vw;
+    /* height: 16vw; */
     margin-bottom: 1.5vw;
   }
   
@@ -440,7 +440,7 @@
       border-radius: 8px;
       position: relative;
       width: 20vw;
-      height: 16vw;
+      /* height: 16vw; */
       margin-bottom: 1.5vw;
     }
     

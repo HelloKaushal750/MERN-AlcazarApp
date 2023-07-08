@@ -16,11 +16,11 @@ import { Link } from "react-router-dom";
 
 export const SignUp = () => {
   const [signIn, setsignIn] = useState({
-    name: "",
+    fullname: "",
     email: "",
-    contactNo: "",
+    contact: "",
     password: "",
-    confirm: "",
+    confirmpassword: "",
   });
   const dispatch = useDispatch();
   const toast = useToast();
@@ -32,32 +32,49 @@ export const SignUp = () => {
 
   const handleSignIn = (e) => {
     e.preventDefault();
-    console.log(signIn.name);
+    // console.log(signIn.name);
     if (
       signIn.name === "" ||
       signIn.email === "" ||
-      signIn.contactNo === "" ||
+      signIn.contact === "" ||
       signIn.password === "" ||
-      signIn.confirm === ""
+      signIn.confirmpassword === ""
     ) {
       return alert("Please fill all Details for Sign Up");
     }
-    toast({
-      title: "Account Created",
-      description: "We've created your account for you",
-      status: "success",
-      duration: 2000,
-      isClosable: true,
-      position: "top",
-    });
-    setsignIn({
-      name: "",
-      email: "",
-      contactNo: "",
-      password: "",
-      confirm: "",
-    });
-    dispatch({ type: "SIGNUPDATA", payload: signIn });
+    console.log(signIn);
+    fetch("http://localhost:7000/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(signIn),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res);
+        dispatch({ type: "SIGNUPDATA", payload: signIn });
+        setsignIn({
+          fullname: "",
+          email: "",
+          contact: "",
+          password: "",
+          confirmpassword: "",
+        });
+        toast({
+          title: "Account Created",
+          description: "We've created your account for you",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+          position: "top",
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -97,9 +114,9 @@ export const SignUp = () => {
               <Input
                 type="text"
                 onChange={(e) => {
-                  setsignIn({ ...signIn, name: e.target.value });
+                  setsignIn({ ...signIn, fullname: e.target.value });
                 }}
-                value={signIn.name}
+                value={signIn.fullname}
                 placeholder="Full name"
               />
               <Input
@@ -114,10 +131,10 @@ export const SignUp = () => {
                 type="text"
                 maxLength={10}
                 onChange={(e) => {
-                  setsignIn({ ...signIn, contactNo: e.target.value });
+                  setsignIn({ ...signIn, contact: e.target.value });
                 }}
                 placeholder="Contact No"
-                value={signIn.contactNo}
+                value={signIn.contact}
               />
               <Input
                 type="password"
@@ -130,9 +147,9 @@ export const SignUp = () => {
               <Input
                 type="password"
                 onChange={(e) => {
-                  setsignIn({ ...signIn, confirm: e.target.value });
+                  setsignIn({ ...signIn, confirmpassword: e.target.value });
                 }}
-                value={signIn.confirm}
+                value={signIn.confirmpassword}
                 placeholder="Confirm Password"
               />
 

@@ -4,6 +4,7 @@ require("dotenv").config();
 const { connection } = require("./config/db");
 const { UserController } = require("./controllers/Users.controller");
 const { VacationController } = require("./controllers/Vacations.controller");
+const { BookedController } = require("./controllers/Booked.controller");
 const { authenticate } = require("./middleware/authenticate");
 
 const app = express();
@@ -16,9 +17,11 @@ app.get("/", (req, res) => {
 
 app.use("/", UserController);
 
+app.use("/vacation", VacationController);
+
 app.use(authenticate);
 
-app.use("/vacation", VacationController);
+app.use("/booked", BookedController);
 
 connection.then(() => {
   app.listen(process.env.PORT, () => {

@@ -49,18 +49,39 @@ const Login = () => {
     if (Login.email === "" || Login.password === "") {
       return alert("Please Insert email & password");
     }
-    signUpData.map((ele) => {
-      if (ele.email === Login.email && ele.password === Login.password) {
-        onOpen();
-        const arr = ele.name.split(" ");
-        dispatch({ type: "FIRSTBTN", payload: `Hello ${arr[0]}` });
-        dispatch({ type: "SECONDBTN", payload: false });
-        dispatch({ type: "USERNAME", payload: arr[0] });
-        // calling();
-      } else if (ele.email !== Login.email || ele.password !== Login.password) {
-        alert("Wrong Credentials");
-      }
-    });
+    fetch("http://localhost:7000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(Login),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res);
+        if (
+          res.message === "Invalid Credentials, please signup if you haven't"
+        ) {
+          alert("Invalid Credential");
+        } else if (
+          res.message === "No User Found, Please Register"
+        ) {
+          alert("No User Found, Please Register")
+        } else {
+          setLogin({ email: "", password: "" });
+          localStorage.setItem("token", res.token);
+          onOpen();
+          const arr = res.user.fullname.split(" ");
+          dispatch({ type: "FIRSTBTN", payload: `Hello ${arr[0]}` });
+          dispatch({ type: "SECONDBTN", payload: false });
+          dispatch({ type: "USERNAME", payload: arr[0] });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <div className={styles.background}>
@@ -99,7 +120,7 @@ const Login = () => {
               <Input
                 type="password"
                 _placeholder={{ color: "white" }}
-                placeholder="Confirm Password"
+                placeholder="Password"
                 onChange={(e) => {
                   setLogin({ ...Login, password: e.target.value });
                 }}
@@ -125,7 +146,14 @@ const Login = () => {
           onClose={onClose}
         >
           <AlertDialogOverlay>
-            <AlertDialogContent style={{display:"flex",flexDirection:"row", justifyContent:"space-between",alignItems:"center"}}>
+            <AlertDialogContent
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
               <AlertDialogHeader
                 fontSize="lg"
                 fontWeight="bold"

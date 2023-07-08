@@ -62,6 +62,7 @@ function ShortNavbar() {
               ) : (
                 <Button
                   onClick={() => {
+                    localStorage.removeItem("token")
                     dispatch({ type: "SECONDBTN", payload: true });
                   }}
                   _hover={"none"}

@@ -1,12 +1,33 @@
-import React, { useState } from "react";
-import data from "../../db.json";
+import React, { useState, useEffect } from "react";
+// import data from "../../db.json";
 import "./ProductList.css";
 import { Link } from "react-router-dom";
 
 const ProductList = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentItems, setCurrentItems] = useState(data.slice(0, 6));
-  const [totalPages, setTotalPages] = useState(Math.ceil(data.length / 6));
+  const [currentItems, setCurrentItems] = useState([]);
+
+  useEffect(() => {
+    fetch(`http://localhost:7000/vacation?page=${currentPage}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res);
+        setCurrentItems(res)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [currentPage,currentItems]);
+
+  const [totalPages, setTotalPages] = useState(Math.ceil(34 / 6));
   const itemsPerPage = 6;
   const [selectedFilter, setSelectedFilter] = useState("All");
 
@@ -29,47 +50,39 @@ const ProductList = () => {
 
   const isCardExpanded = (cardId) => expandedCards.includes(cardId);
 
-  const [filteredItems, setFilteredItems] = useState(data);
+  const [filteredItems, setFilteredItems] = useState(currentItems);
 
   const filterItems = (filterType) => {
-    let filteredItems = [...data];
+    let filteredItems = [...currentItems];
 
     if (filterType === "All") {
       setSelectedFilter(filterType);
       setCurrentPage(1);
-      setCurrentItems(filteredItems.slice(0, itemsPerPage));
+      setCurrentItems(currentItems);
     } else if (filterType === "Trending") {
-      filteredItems = filteredItems.filter((item) => item.id % 3 === 0);
+      filteredItems = filteredItems.filter((item) => item._id % 3 === 0);
       setSelectedFilter(filterType);
-      setCurrentPage(1);
+      setCurrentPage(3);
       setCurrentItems(filteredItems.slice(0, itemsPerPage));
     } else if (filterType === "Popular") {
-      filteredItems = filteredItems.filter((item) => item.id % 4 === 0);
+      filteredItems = filteredItems.filter((item) => item._id % 4 === 0);
       setSelectedFilter(filterType);
-      setCurrentPage(1);
+      setCurrentPage(2);
       setCurrentItems(filteredItems.slice(0, itemsPerPage));
     } else if (filterType === "Features") {
-      filteredItems = filteredItems.filter((item) => item.id % 6 === 0);
+      filteredItems = filteredItems.filter((item) => item._id % 6 === 0);
       setSelectedFilter(filterType);
-      setCurrentPage(1);
+      setCurrentPage(5);
       setCurrentItems(filteredItems.slice(0, itemsPerPage));
     } else if (filterType === "Recommend") {
+      filteredItems = filteredItems.filter((item) => item._id % 8 === 0);
       setSelectedFilter(filterType);
-      filteredItems.sort((a, b) => {
-        const priceA = parseInt(a.price.replace("$", ""));
-        const priceB = parseInt(b.price.replace("$", ""));
-        return priceA - priceB;
-      });
-      setCurrentPage(1);
+      setCurrentPage(6);
       setCurrentItems(filteredItems.slice(0, itemsPerPage));
     } else if (filterType === "Tour Packages") {
+      filteredItems = filteredItems.filter((item) => item._id % 5 === 0);
       setSelectedFilter(filterType);
-      filteredItems.sort((a, b) => {
-        const priceA = parseInt(a.price.replace("$", ""));
-        const priceB = parseInt(b.price.replace("$", ""));
-        return priceB - priceA;
-      });
-      setCurrentPage(1);
+      setCurrentPage(4);
       setCurrentItems(filteredItems.slice(0, itemsPerPage));
     }
 
@@ -91,7 +104,10 @@ const ProductList = () => {
     const nextPage = currentPage + 1;
 
     return (
-      <div className="pagination">
+      <div
+        className="pagination"
+        style={{ marginTop: "-15px", padding: "0 0 0 28px" }}
+      >
         <div className="round-button first-page" onClick={() => paginate(1)}>
           First Page
         </div>
@@ -125,7 +141,17 @@ const ProductList = () => {
           your eye, and don't
         </h5>
       </div>
-      <div className="filter-buttons">
+      <div
+        className="filter-buttons"
+        style={{
+          margin: "auto",
+          display: "flex",
+          justifyContent: "left",
+          padding: "0 40px 0 0px",
+          gap: "5px",
+          marginBottom: "20px",
+        }}
+      >
         <button
           className={`filter-buttonA ${
             selectedFilter === "All" ? "active" : ""
@@ -176,28 +202,26 @@ const ProductList = () => {
         </button>
       </div>
       <div className="card-grid">
-        {currentItems.map((product,i) => (
-         
-            <div className="card" key={product.id}>
-               <Link to={`/products/${product.id}`} key={i}>
+        {currentItems.map((product, i) => (
+          <div className="card" key={product._id}>
+            <Link to={`/products/${product._id}`} key={i}>
               <img src={product.image} alt={product.location} />
-              
+
               <div className="card-content">
                 <div className="location">{product.location}</div>
                 <div className="price">${product.price}</div>
               </div>
-              </Link>
-              <hr className="line" />
-              <p>
-                {isCardExpanded(product.id)
-                  ? product.description
-                  : `${product.description.slice(0, 30)}...`}
-                <button onClick={() => toggleCardExpansion(product.id)}>
-                  {isCardExpanded(product.id) ? "Read Less" : "Read More"}
-                </button>
-              </p>
-            </div>
-         
+            </Link>
+            <hr className="line" />
+            <p>
+              {isCardExpanded(product._id)
+                ? product.description
+                : `${product.description.slice(0, 30)}...`}
+              <button onClick={() => toggleCardExpansion(product._id)}>
+                {isCardExpanded(product._id) ? "Read Less" : "Read More"}
+              </button>
+            </p>
+          </div>
         ))}
       </div>
       <div className="pagination">{renderPageNumbers()}</div>

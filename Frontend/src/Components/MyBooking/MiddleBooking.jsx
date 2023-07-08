@@ -1,16 +1,31 @@
 import "./CSS/MiddleBooking.css";
 import { Avatar, Wrap, WrapItem } from "@chakra-ui/react";
-import data from "../../db.json";
+import { useEffect, useState } from "react";
 
 import { useSelector } from "react-redux";
 
 function MiddleBooking() {
- 
-  const bookedDataHistory = useSelector((state)=>{
-    return state.bookingHistory;
-  })
-  console.log(bookedDataHistory);
-  
+  const [bookedDataHistory, setBookedDataHistory] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:7000/booked", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      }
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res);
+        setBookedDataHistory(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <div className="booking_middle_container">
       <div style={{ display: "flex", justifyContent: "center" }}>
@@ -105,10 +120,11 @@ function MiddleBooking() {
       <div
         style={{
           marginTop: "30px",
-          boxShadow: "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px",
+          boxShadow:
+            "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px",
           borderRadius: "10px",
           padding: "20px",
-          backgroundColor:"white"
+          backgroundColor: "white",
         }}
       >
         <div
@@ -124,9 +140,11 @@ function MiddleBooking() {
               Booking History
             </h1>
             <p style={{ fontSize: "13px", color: "rgb(97, 96, 96)" }}>
-              {
-                bookedDataHistory.length>0 ? `${bookedDataHistory.length} DESTINATION FOUND` : <span style={{color:"red"}}>NO DESTINATION FOUND</span>
-              }
+              {bookedDataHistory.length > 0 ? (
+                `${bookedDataHistory.length} DESTINATION FOUND`
+              ) : (
+                <span style={{ color: "red" }}>NO DESTINATION FOUND</span>
+              )}
             </p>
           </div>
         </div>
@@ -144,7 +162,7 @@ function MiddleBooking() {
                   alignItems: "center",
                   color: "rgb(97, 96, 96)",
                   marginBottom: "10px",
-                  boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"
+                  boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
                 }}
               >
                 <div

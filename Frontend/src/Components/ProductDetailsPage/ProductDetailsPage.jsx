@@ -44,10 +44,23 @@ const ProductDetailsPage = () => {
   const [checkBooking, setCheckBooking] = useState(false);
 
   useEffect(() => {
-    let productData = data.filter((item) => {
-      return item.id === id;
-    });
-    setCurrentProduct(productData[0]);
+    fetch(`http://localhost:7000/vacation/${id}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res);
+        setCurrentProduct(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   const dispatch = useDispatch();
@@ -60,7 +73,6 @@ const ProductDetailsPage = () => {
     type: "",
     date: "",
     tickets: "",
-    id: id,
     pricewithpassengers: "",
     image: "",
     location: "",
@@ -94,6 +106,7 @@ const ProductDetailsPage = () => {
         description: description,
       });
     }
+    
     setCheckBooking(true);
   };
 
@@ -104,6 +117,14 @@ const ProductDetailsPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnref = useRef();
 
+  const handleBooking = () => {
+    if (!localStorage.getItem("token")) {
+      alert("Please Login");
+    } else {
+      onOpen();
+    }
+  };
+
   return (
     <div>
       <div
@@ -112,7 +133,7 @@ const ProductDetailsPage = () => {
           backgroundImage: "url(https://wallpaperaccess.com/full/1192057.jpg)",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
-          color:"white"
+          color: "white",
         }}
       >
         <ShortNavbar />
@@ -207,7 +228,7 @@ const ProductDetailsPage = () => {
           <Box className={style.discountBookBox}>
             <Button
               ref={btnref}
-              onClick={onOpen}
+              onClick={handleBooking}
               _hover={"none"}
               borderRadius={"30px"}
               marginBottom={"40px"}

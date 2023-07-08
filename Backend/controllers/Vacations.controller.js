@@ -1,15 +1,31 @@
 const express = require("express");
 const { VacationModel } = require("../models/Vacations.model");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
 
 const VacationController = express.Router();
 
 VacationController.get("/", async (req, res) => {
   try {
-    if (req.query.page || req.body.search || req.body.location) {
-      res.status(200).json({ message: "Work Pending" });
+    if (req.query.page || req.query.search) {
+      const page = parseInt(req.query.page) || 1;
+      const limit = 6;
+      const search = req.query.search;
+
+      const filter = {};
+
+      if (search) {
+        filter.location = { $regex: search, $options: "i" };
+        console.log(filter);
+      }
+
+      try {
+        const data = await VacationModel.find(filter)
+          .skip((page - 1) * limit)
+          .limit(limit);
+        res.status(200).json(data);
+      } catch (error) {
+        res.status(404).json({ message: "Something went wrong" });
+        console.log(error);
+      }
     } else {
       const vacation = await VacationModel.find();
       if (vacation.length > 0) {
@@ -23,20 +39,30 @@ VacationController.get("/", async (req, res) => {
   }
 });
 
+VacationController.get("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const vacation = await VacationModel.findOne({ _id: id });
+    res.status(200).json(vacation)
+  } catch (error) {
+    res.send({ message: "Something went wrong" });
+  }
+});
+
 VacationController.post("/", async (req, res) => {
   try {
-    const { image, location, price, description, category, userId } = req.body;
+    const { image, location, price, description, category } = req.body;
     const vacation = new VacationModel({
       image,
       location,
       price,
       description,
       category,
-      userId,
     });
-    await vaction.save();
+    await vacation.save();
     res.status(200).json({ message: "vacation Data Created" });
   } catch (error) {
+    console.log(error);
     res.status(404).json({ message: "Something went wrong" });
   }
 });

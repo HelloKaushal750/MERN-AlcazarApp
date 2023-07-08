@@ -10,12 +10,29 @@ function Confirmation() {
     return state.bookingData;
   });
 
-  const step = useSelector((state)=>{
-    return state.step
-  })
+  const step = useSelector((state) => {
+    return state.step;
+  });
   const [date, setDate] = useState();
   useEffect(() => {
-    dispatch({ type: "BOOKINGHISTORY", payload: bookingData });
+    fetch("http://localhost:7000/booked", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bookingData),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // dispatch({ type: "BOOKINGHISTORY", payload: bookingData });
     setDate(Date.now());
   }, []);
   console.log(step);
@@ -54,7 +71,9 @@ function Confirmation() {
               fontSize: "14px",
               wclassNameth: "80px",
             }}
-            onClick={()=>{dispatch({ type: "UPDATE_STEP", payload: -4 });}}
+            onClick={() => {
+              dispatch({ type: "UPDATE_STEP", payload: -4 });
+            }}
           >
             Back to Home
           </Button>

@@ -45,7 +45,7 @@ UserController.post("/login", async (req, res) => {
       }
       if (result) {
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
-        res.status(200).json({ message: "Login Successful", token });
+        res.status(200).json({ message: "Login Successful", token, user });
       } else {
         res.status(404).json({
           message: "Invalid Credentials, please signup if you haven't",
@@ -53,7 +53,8 @@ UserController.post("/login", async (req, res) => {
       }
     });
   } catch (error) {
-    res.status(404).json({ message: "Something went wrong" });
+    console.log(error);
+    res.status(404).json({ message: "No User Found, Please Register" });
   }
 });
 
