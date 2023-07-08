@@ -53,4 +53,21 @@ BookedController.post("/", async (req, res) => {
   }
 });
 
+BookedController.delete("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleteBookedVacation = await BookedModel.findOneAndDelete({
+      _id: id,
+      userId: req.body.userId,
+    });
+    if (deleteBookedVacation) {
+      res.status(200).json({ message: "Booked Vacation Deleted Successfully" });
+    } else {
+      res.status(200).json({ message: "No Vacation found!" });
+    }
+  } catch (error) {
+    res.status(404).json({ message: "Something went wrong" });
+  }
+});
+
 module.exports = { BookedController };

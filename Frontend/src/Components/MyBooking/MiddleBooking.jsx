@@ -1,18 +1,31 @@
 import "./CSS/MiddleBooking.css";
 import { Avatar, Wrap, WrapItem } from "@chakra-ui/react";
+import React from "react";
 import { useEffect, useState } from "react";
-
+import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+  Button,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 
 function MiddleBooking() {
   const [bookedDataHistory, setBookedDataHistory] = useState([]);
-  useEffect(() => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = React.useRef();
+
+  const getData = () => {
     fetch("http://localhost:7000/booked", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
-      }
+      },
     })
       .then((res) => {
         return res.json();
@@ -24,7 +37,31 @@ function MiddleBooking() {
       .catch((err) => {
         console.log(err);
       });
+  };
+  useEffect(() => {
+    getData();
   }, []);
+
+  const handleDelete = (id) => {
+    fetch(`http://localhost:7000/booked/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res);
+        onClose();
+        getData();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className="booking_middle_container">
@@ -151,80 +188,123 @@ function MiddleBooking() {
 
         {/* Show Data */}
         <div className="scrolldown">
-          {bookedDataHistory.map((item) => {
-            return (
-              <div
-                style={{
-                  display: "flex",
-                  padding: "10px",
-                  gap: "45px",
-                  fontSize: "16px",
-                  alignItems: "center",
-                  color: "rgb(97, 96, 96)",
-                  marginBottom: "10px",
-                  boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
-                }}
-              >
+          {bookedDataHistory.length > 0 &&
+            bookedDataHistory?.map((item) => {
+              return (
                 <div
                   style={{
-                    display: "grid",
-                    gap: "10px",
-                    gridTemplateColumns: "30% 70%",
-                    width: "35%",
+                    display: "flex",
+                    padding: "10px",
+                    justifyContent:"space-between",
+                    fontSize: "16px",
                     alignItems: "center",
+                    color: "rgb(97, 96, 96)",
+                    marginBottom: "10px",
+                    boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
                   }}
                 >
-                  <div style={{ width: "70px", height: "50px" }}>
-                    <img
-                      src={item.image}
-                      alt=""
+                  <div
+                    style={{
+                      display: "grid",
+                      gap: "10px",
+                      gridTemplateColumns: "30% 70%",
+                      width: "35%",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div style={{ width: "70px", height: "50px" }}>
+                      <img
+                        src={item.image}
+                        alt=""
+                        style={{
+                          borderRadius: "5px",
+                          width: "100%",
+                          height: "100%",
+                        }}
+                      />
+                    </div>
+                    <h1
                       style={{
-                        borderRadius: "5px",
-                        width: "100%",
-                        height: "100%",
+                        fontSize: "16px",
+                        fontWeight: "600",
+                        color: "black",
+                        textAlign: "left",
                       }}
-                    />
+                    >
+                      {item.location}
+                    </h1>
                   </div>
-                  <h1
-                    style={{
-                      fontSize: "16px",
-                      fontWeight: "600",
-                      color: "black",
-                      textAlign: "left",
-                    }}
+                  <div>
+                    <p>5 Nights</p>
+                  </div>
+                  <div>
+                    <p>
+                      <i
+                        class="fa-solid fa-plane"
+                        style={{ color: "rgb(154, 6, 6)" }}
+                      ></i>
+                      &nbsp; {item.date}
+                    </p>
+                  </div>
+                  <div>
+                    <p>{item.tickets} Adjust</p>
+                  </div>
+                  <div>
+                    <h3
+                      style={{
+                        fontSize: "18px",
+                        color: "black",
+                        fontWeight: "600",
+                      }}
+                    >
+                      $ {item.pricewithpassengers}
+                    </h3>
+                  </div>
+                  <div
+                    onClick={onOpen}
                   >
-                    {item.location}
-                  </h1>
-                </div>
-                <div>
-                  <p>5 Night</p>
-                </div>
-                <div>
-                  <p>
                     <i
-                      class="fa-solid fa-plane"
-                      style={{ color: "rgb(154, 6, 6)" }}
+                      class="fa-regular fa-trash-can"
+                      style={{ color: "red", fontSize: "20px" }}
                     ></i>
-                    &nbsp; {item.date}
-                  </p>
+                  </div>
+                  <div>
+                    <AlertDialog
+                      isOpen={isOpen}
+                      leastDestructiveRef={cancelRef}
+                      onClose={onClose}
+                    >
+                      <AlertDialogOverlay>
+                        <AlertDialogContent>
+                          <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                            Delete Vacation
+                          </AlertDialogHeader>
+
+                          <AlertDialogBody>
+                            Are you sure to cancel the vacation? 
+                          </AlertDialogBody>
+
+                          <AlertDialogFooter>
+                            <Button ref={cancelRef} onClick={onClose}>
+                              Cancel
+                            </Button>
+                            <Button
+                              colorScheme="red"
+                              onClick={() => {
+                                handleDelete(item._id);
+                              }}
+                              ml={3}
+                            >
+                              Delete
+                            </Button>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialogOverlay>
+                    </AlertDialog>
+                  </div>
                 </div>
-                <div>
-                  <p>{item.tickets} Adjust</p>
-                </div>
-                <div>
-                  <h3
-                    style={{
-                      fontSize: "18px",
-                      color: "black",
-                      fontWeight: "600",
-                    }}
-                  >
-                    {item.pricewithpassengers}
-                  </h3>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </div>
     </div>
