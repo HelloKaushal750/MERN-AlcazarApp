@@ -49,7 +49,7 @@ const Login = () => {
     if (Login.email === "" || Login.password === "") {
       return alert("Please Insert email & password");
     }
-    fetch("http://localhost:7000/login", {
+    fetch("https://zany-tan-reindeer-slip.cyclic.cloud/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

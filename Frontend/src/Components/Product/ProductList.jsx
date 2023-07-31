@@ -8,7 +8,7 @@ const ProductList = () => {
   const [currentItems, setCurrentItems] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:7000/vacation?page=${currentPage}`, {
+    fetch(`https://zany-tan-reindeer-slip.cyclic.cloud/vacation?page=${currentPage}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,

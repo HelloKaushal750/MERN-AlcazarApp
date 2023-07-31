@@ -43,7 +43,7 @@ function MiddleBooking() {
   }, []);
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:7000/booked/${id}`, {
+    fetch(`https://zany-tan-reindeer-slip.cyclic.cloud/booked/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,

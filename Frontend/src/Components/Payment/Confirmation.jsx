@@ -15,7 +15,7 @@ function Confirmation() {
   });
   const [date, setDate] = useState();
   useEffect(() => {
-    fetch("http://localhost:7000/booked", {
+    fetch("https://zany-tan-reindeer-slip.cyclic.cloud/booked", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
