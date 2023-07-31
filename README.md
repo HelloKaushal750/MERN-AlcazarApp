@@ -10,7 +10,7 @@ Alcazar is one of the most used travel agency wbsite for booking or planning any
 Website is hosted on Vercel
 
 ```bash
-  https://alcazartravels-hellokaushal750.vercel.app/
+  https://alcazartravels.vercel.app/
 ```
 
 ## Tech Stack
