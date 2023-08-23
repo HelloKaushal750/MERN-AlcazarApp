@@ -63,10 +63,15 @@ npm run start
 Here are some screenshots of the Flipkart clone website:
 
 ![Home Page](Images/home.png)
+
 ![Vacation List](Images/vacation.png)
+
 ![Vacation Details](Images/description.png)
+
 ![Order Summary](Images/booking.png)
+
 ![Payment](Images/payment.png)
+
 ![My Booking](Images/mybooking.png)
 
 
