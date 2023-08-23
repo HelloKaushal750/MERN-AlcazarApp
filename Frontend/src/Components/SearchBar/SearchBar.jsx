@@ -12,7 +12,7 @@ function SearchBar() {
   };
 
   const handleButtonClick = () => {
-    fetch(`https://zany-tan-reindeer-slip.cyclic.cloud/vacation?search=${searchQuery}`, {
+    fetch(`${process.env.REACT_APP_URL}/vacation?search=${searchQuery}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,

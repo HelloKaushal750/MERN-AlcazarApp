@@ -8,7 +8,8 @@ const ProductList = () => {
   const [currentItems, setCurrentItems] = useState([]);
 
   useEffect(() => {
-    fetch(`https://zany-tan-reindeer-slip.cyclic.cloud/vacation?page=${currentPage}`, {
+    console.log(process.env.REACT_APP_URL);
+    fetch(`${process.env.REACT_APP_URL}/vacation?page=${currentPage}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,

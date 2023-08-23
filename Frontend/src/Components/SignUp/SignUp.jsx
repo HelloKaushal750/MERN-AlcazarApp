@@ -43,7 +43,7 @@ export const SignUp = () => {
       return alert("Please fill all Details for Sign Up");
     }
     console.log(signIn);
-    fetch("https://zany-tan-reindeer-slip.cyclic.cloud/signup", {
+    fetch(`${process.env.REACT_APP_URL}/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

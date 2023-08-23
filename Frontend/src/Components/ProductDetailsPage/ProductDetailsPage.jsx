@@ -44,7 +44,7 @@ const ProductDetailsPage = () => {
   const [checkBooking, setCheckBooking] = useState(false);
 
   useEffect(() => {
-    fetch(`https://zany-tan-reindeer-slip.cyclic.cloud/vacation/${id}`, {
+    fetch(`${process.env.REACT_APP_URL}/vacation/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,

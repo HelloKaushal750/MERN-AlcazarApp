@@ -20,7 +20,7 @@ function MiddleBooking() {
   const cancelRef = React.useRef();
 
   const getData = () => {
-    fetch("http://localhost:7000/booked", {
+    fetch(`${process.env.REACT_APP_URL}/booked`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -43,7 +43,7 @@ function MiddleBooking() {
   }, []);
 
   const handleDelete = (id) => {
-    fetch(`https://zany-tan-reindeer-slip.cyclic.cloud/booked/${id}`, {
+    fetch(`${process.env.REACT_APP_URL}/booked/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
